@@ -1,0 +1,14 @@
+**************************************
+TITLE: Roundcube Webmail Change Password (Active Directory)
+WRITTEN BY: adrenlinerush
+LAST MOD: 6/19/09
+
+RELEASED UNDER GPL LICENSE 
+**************************************
+
+This isn't done or tested yet just wanted to get it into git....
+Based on JohnDoh's SQL plugin: http://github.com/JohnDoh/RoundCube-Plugin-Changepasswd-SQL/tree/master
+
+
+
+
