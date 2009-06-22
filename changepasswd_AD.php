@@ -110,7 +110,7 @@ class changepasswd_AD extends rcube_plugin
       include ("changepasswd_AD_config.php"); 
       include ("/phpActiveDirectoryPasswdChange/csLogging.class.php");
 
-      $logwriter = new csLogging("/test.countrystone.com/trunk/roundcubemail/plugins/changepasswd_AD/changepasswd_AD_config.php");
+      $logwriter = new csLogging($errorlogfile,$debuglogfile,$debug);
 
       $postData = array
       (
