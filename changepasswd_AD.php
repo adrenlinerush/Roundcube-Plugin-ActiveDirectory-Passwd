@@ -108,9 +108,9 @@ class changepasswd_AD extends rcube_plugin
   function changePassword($uid, $old_pw, $new_pw) {
 
       include ("changepasswd_AD_config.php"); 
-      include ("clsLogging.php");
+      include ("/phpActiveDirectoryPasswdChange/csLogging.class.php");
 
-      $logwriter = new Logging("changepasswd_AD_config.php");
+      $logwriter = new csLogging("/test.countrystone.com/trunk/roundcubemail/plugins/changepasswd_AD/changepasswd_AD_config.php");
 
       $postData = array
       (
