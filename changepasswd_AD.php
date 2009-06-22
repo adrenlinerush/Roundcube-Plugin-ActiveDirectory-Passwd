@@ -108,6 +108,9 @@ class changepasswd_AD extends rcube_plugin
   function changePassword($uid, $old_pw, $new_pw) {
 
       include ("changepasswd_AD_config.php"); 
+      include ("clsLogging.php");
+
+      $logwriter = new Logging("changepasswd_AD_config.php");
 
       $postData = array
       (
@@ -123,7 +126,15 @@ class changepasswd_AD extends rcube_plugin
         'method' => 'GET',
         'content' => http_build_query($postData, '', '&'),
       );
-      $ret = file_get_contents($posturl, false, stream_context_create($post));
+      $logwriter->debugwrite("POST DATA: " . http_build_query($postData, '', '&'));
+      $logwriter->debugwrite("POST: $post");
+      $stream = stream_context_create($post);
+      $streamPost = @fopen($posturl,'rb',false,$stream);
+      if (!$streampost) {
+        $logwriter->writelog("Error in post: $php_errormsg");
+      }
+      $ret = @stream_get_contents($streamPost);
+      $logwriter->debugwrite("RET: $ret");
       return $ret;
   }
 }
