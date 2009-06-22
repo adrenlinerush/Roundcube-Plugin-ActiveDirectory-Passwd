@@ -108,6 +108,9 @@ class changepasswd_AD extends rcube_plugin
   function changePassword($uid, $old_pw, $new_pw) {
 
       include ("changepasswd_AD_config.php"); 
+      if (!$debug) {
+        error_reporting(1);
+      } 
       include ("/phpActiveDirectoryPasswdChange/csLogging.class.php");
 
       $logwriter = new csLogging($errorlogfile,$debuglogfile,$debug);
