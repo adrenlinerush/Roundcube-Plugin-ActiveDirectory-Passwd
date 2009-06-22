@@ -10,6 +10,7 @@ $messages = array();
 $messages['nocurpassword'] = 'Please enter your current password';
 $messages['nopassword'] = 'Please enter your new password';
 $messages['passwordinconsistency'] = 'Inconsistency in new password, please try again';
+$messages['passwordfailed0'] = 'Error: failed durring post';
 $messages['passwordfailed1'] = 'Error: failed password validation';
 $messages['passwordfailed2'] = 'Error: failed initial connect to ldap server';
 $messages['passwordfailed3'] = 'Error: failed to bind with search dn';

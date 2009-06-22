@@ -67,7 +67,7 @@ class changepasswd_AD extends rcube_plugin
    
     $ret = $this->changePassword($uid, $old_pw, $new_pw);
     switch ($ret) {
-      case 0: 
+      case 9: 
         $_SESSION['password'] = rcmail::get_instance()->encrypt($new_pw);
 				$this->api->output->command('display_message', $this->gettext('passwordchanged'), 'confirmation');
         break;
@@ -95,7 +95,9 @@ class changepasswd_AD extends rcube_plugin
       case 8: 
         $this->api->output->command('display_message', $this->gettext('passwordfailed8'), 'error');
         break;
-
+      case 0: 
+        $this->api->output->command('display_message', $this->gettext('passwordfailed0'), 'error');
+        break;
     }
 
 		// go to next step
@@ -121,7 +123,7 @@ class changepasswd_AD extends rcube_plugin
         'method' => 'GET',
         'content' => http_build_query($postData, '', '&'),
       );
-      $ret = file_get_contents($posturl, fals, stream_context_create($post));
+      $ret = file_get_contents($posturl, false, stream_context_create($post));
       return $ret;
   }
 }
