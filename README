@@ -6,9 +6,10 @@ LAST MOD: 6/19/09
 RELEASED UNDER GPL LICENSE 
 **************************************
 
-This isn't done or tested yet just wanted to get it into git....
 Based on JohnDoh's SQL plugin: http://github.com/JohnDoh/RoundCube-Plugin-Changepasswd-SQL/tree/master
 
+Creates a web request designed to work with my passwdChangeAD script to change passwords in Active directory
+tested and working but still needs polishing
 
 
 
