@@ -63,8 +63,9 @@ class changepasswd_AD extends rcube_plugin
 		$old_pw = $_POST['_curpasswd'];
 		$new_pw = $_POST['_newpasswd'];
     
-    $uid = $_SESSION['username'];
+    $uid_parts = split("@", $_SESSION['username']);
    
+    $uid = $uid_parts[0];
     $ret = $this->changePassword($uid, $old_pw, $new_pw);
     switch ($ret) {
       case 9: 
@@ -111,26 +112,30 @@ class changepasswd_AD extends rcube_plugin
       include ("csLogging.class.php");
 
       $logwriter = new csLogging($errorlogfile,$debuglogfile,$debug);
+        
+      $postData = array('uid'=>$uid,'curpwd'=>$old_pw,'newpwdone'=>$new_pw,'newpwdtwo'=>$new_pw,'successurl'=>$successurl,'failurl'=>$failurl);
+      $postData = http_build_query($postData);
 
-      $postData =  "uid=$uid&curpwd=$urpwd&newpdone=$new_pw&newpwdtwo=$new_pw&successurl=$successurl&failurl=$failurl";
-      $post=array('http'=>array
-      (
-        'method' => 'GET',
-        'content' => $postData
-      ));
-      if($optional_headers!==null) {
-        $params['http']['header']=$optional_headers;
-      }
-      $logwriter->debugwrite("POST DATA: $postData"));
-      $logwriter->debugwrite("POST: $post");
-      $stream = stream_context_create($post);
-      $streamPost = @fopen($posturl,'rb',false,$stream);
-      if (!$streampost) {
-        $logwriter->writelog("Error in post: $php_errormsg");
-      }
-      $ret = @stream_get_contents($streamPost);
-      $logwriter->debugwrite("RET: $ret");
-      return $ret;
+      $params = array('http' => array(
+                  'method' => 'GET',
+                  'content' => $postData
+               ));
+     
+     $ctx = stream_context_create($params);
+     $logwriter->debugwrite("DATA: $postData");
+     $logwriter->debugwrite("PARAMS: $params");
+     $logwriter->debugwrite("CTX: $ctx");
+     $logwriter->debugwrite("POSTURL: $posturl");
+     $fp = @fopen($posturl . "?" . $postData, 'r', false, $ctx);
+     if (!$fp) {
+        $logwriter->writelog("Problem with $posturl, $php_errormsg");
+     }
+     $response = @stream_get_contents($fp);
+     if ($response === false) {
+        $logwriter->writelog("Problem reading data from $posturl, $php_errormsg");
+     }
+     $logwriter->debugwrite("RESPONSE: $response");
+     return $response;
   }
 }
 
