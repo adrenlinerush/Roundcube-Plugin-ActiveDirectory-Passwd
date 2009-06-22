@@ -108,31 +108,20 @@ class changepasswd_AD extends rcube_plugin
   function changePassword($uid, $old_pw, $new_pw) {
 
       include ("changepasswd_AD_config.php"); 
-      if (!$debug) {
-        error_reporting(1);
-      }
-      else {
-        error_reporting(0);
-      } 
-      include ("/phpActiveDirectoryPasswdChange/csLogging.class.php");
+      include ("csLogging.class.php");
 
       $logwriter = new csLogging($errorlogfile,$debuglogfile,$debug);
 
-      $postData = array
-      (
-        'uid' => $uid,
-        'curpwd' => $old_pw,
-        'newpwdone' => $new_pw,
-        'newpwdtwo' => $new_pw,
-        'successurl' => $successurl,
-        'failurl' => $failurl,
-      );
-      $post['http'] = array
+      $postData =  "uid=$uid&curpwd=$urpwd&newpdone=$new_pw&newpwdtwo=$new_pw&successurl=$successurl&failurl=$failurl";
+      $post=array('http'=>array
       (
         'method' => 'GET',
-        'content' => http_build_query($postData, '', '&'),
-      );
-      $logwriter->debugwrite("POST DATA: " . http_build_query($postData, '', '&'));
+        'content' => $postData
+      ));
+      if($optional_headers!==null) {
+        $params['http']['header']=$optional_headers;
+      }
+      $logwriter->debugwrite("POST DATA: $postData"));
       $logwriter->debugwrite("POST: $post");
       $stream = stream_context_create($post);
       $streamPost = @fopen($posturl,'rb',false,$stream);
