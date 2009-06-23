@@ -9,7 +9,22 @@ RELEASED UNDER GPL LICENSE
 Based on JohnDoh's SQL plugin: http://github.com/JohnDoh/RoundCube-Plugin-Changepasswd-SQL/tree/master
 
 Creates a web request designed to work with my passwdChangeAD script to change passwords in Active directory
+
+passwdChangeAD needs to be tested working and debug turned off or this plugin will not recieve the return codes
+
 tested and working but still needs polishing
 
+Requires that you run the svn/trunk version of Roundcube...
 
+Installation:
+-----------------
+create a folder under plugins named changepasswd_AD and put all the files and folders in there
+
+add passwdchange_AD to the enabled plugins in the main config file
+
+edit the config file to liking
+
+place the roundcube fail and success files in the passwdChangeAD directory
+
+and should be good to go
 
